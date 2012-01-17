@@ -18,7 +18,7 @@
 //  limitations under the License.
 //
 
-#import "Errors.h"
+#import "RKError.h"
 
 typedef enum RKObjectMapperErrors {
     RKObjectMapperErrorObjectMappingNotFound        = 1001,     // No mapping found

@@ -466,7 +466,7 @@
     		NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
     								  errorMessage, NSLocalizedDescriptionKey,
     								  nil];
-    		NSError* error = [NSError errorWithDomain:RKRestKitErrorDomain code:RKRequestBaseURLOfflineError userInfo:userInfo];
+    		NSError* error = [NSError errorWithDomain:RKErrorDomain code:RKRequestBaseURLOfflineError userInfo:userInfo];
     		[self didFailLoadWithError:error];
         }
 	}
@@ -520,7 +520,7 @@
 			NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
 									  errorMessage, NSLocalizedDescriptionKey,
 									  nil];
-			error = [NSError errorWithDomain:RKRestKitErrorDomain code:RKRequestBaseURLOfflineError userInfo:userInfo];
+			error = [NSError errorWithDomain:RKErrorDomain code:RKRequestBaseURLOfflineError userInfo:userInfo];
 			[self didFailLoadWithError:error];
 			response = [[[RKResponse alloc] initWithSynchronousRequest:self URLResponse:URLResponse body:payload error:error] autorelease];
 		}

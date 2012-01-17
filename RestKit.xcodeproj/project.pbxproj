@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		001EC63614C5AD8F00C9C10D /* RKError.h in Headers */ = {isa = PBXBuildFile; fileRef = 001EC63414C5AD8F00C9C10D /* RKError.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		001EC63714C5AD8F00C9C10D /* RKError.m in Sources */ = {isa = PBXBuildFile; fileRef = 001EC63514C5AD8F00C9C10D /* RKError.m */; };
+		001EC63914C5AD9D00C9C10D /* RKError.h in Headers */ = {isa = PBXBuildFile; fileRef = 001EC63414C5AD8F00C9C10D /* RKError.h */; };
+		001EC63A14C5AF9B00C9C10D /* RKError.m in Sources */ = {isa = PBXBuildFile; fileRef = 001EC63514C5AD8F00C9C10D /* RKError.m */; };
 		250CA67D147D8E8B0047D347 /* OCHamcrest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 250CA67B147D8E800047D347 /* OCHamcrest.framework */; };
 		250CA67E147D8E8F0047D347 /* OCHamcrestIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 250CA67C147D8E800047D347 /* OCHamcrestIOS.framework */; };
 		250CA680147D8F050047D347 /* OCHamcrest.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 250CA67B147D8E800047D347 /* OCHamcrest.framework */; };
@@ -104,8 +108,6 @@
 		25160E2C145650490060A5C5 /* RKParserRegistry.m in Sources */ = {isa = PBXBuildFile; fileRef = 25160D9F145650490060A5C5 /* RKParserRegistry.m */; };
 		25160E2D145650490060A5C5 /* RKRouter.h in Headers */ = {isa = PBXBuildFile; fileRef = 25160DA0145650490060A5C5 /* RKRouter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		25160E2E145650490060A5C5 /* RestKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 25160DA1145650490060A5C5 /* RestKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		25160E2F145650490060A5C5 /* Errors.h in Headers */ = {isa = PBXBuildFile; fileRef = 25160DA3145650490060A5C5 /* Errors.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		25160E30145650490060A5C5 /* Errors.m in Sources */ = {isa = PBXBuildFile; fileRef = 25160DA4145650490060A5C5 /* Errors.m */; };
 		25160E31145650490060A5C5 /* lcl_config_components.h in Headers */ = {isa = PBXBuildFile; fileRef = 25160DA5145650490060A5C5 /* lcl_config_components.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		25160E32145650490060A5C5 /* lcl_config_extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 25160DA6145650490060A5C5 /* lcl_config_extensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		25160E33145650490060A5C5 /* lcl_config_logger.h in Headers */ = {isa = PBXBuildFile; fileRef = 25160DA7145650490060A5C5 /* lcl_config_logger.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -270,8 +272,6 @@
 		25160F80145657650060A5C5 /* NSData+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 25160D5B145650490060A5C5 /* NSData+MD5.m */; };
 		25160F81145657650060A5C5 /* NSString+MD5.h in Headers */ = {isa = PBXBuildFile; fileRef = 25160D5E145650490060A5C5 /* NSString+MD5.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		25160F82145657650060A5C5 /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 25160D5F145650490060A5C5 /* NSString+MD5.m */; };
-		25160F83145657650060A5C5 /* Errors.h in Headers */ = {isa = PBXBuildFile; fileRef = 25160DA3145650490060A5C5 /* Errors.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		25160F84145657650060A5C5 /* Errors.m in Sources */ = {isa = PBXBuildFile; fileRef = 25160DA4145650490060A5C5 /* Errors.m */; };
 		25160F85145657650060A5C5 /* lcl_config_components.h in Headers */ = {isa = PBXBuildFile; fileRef = 25160DA5145650490060A5C5 /* lcl_config_components.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		25160F86145657650060A5C5 /* lcl_config_extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 25160DA6145650490060A5C5 /* lcl_config_extensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		25160F87145657650060A5C5 /* lcl_config_logger.h in Headers */ = {isa = PBXBuildFile; fileRef = 25160DA7145650490060A5C5 /* lcl_config_logger.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -550,6 +550,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		001EC63414C5AD8F00C9C10D /* RKError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKError.h; sourceTree = "<group>"; };
+		001EC63514C5AD8F00C9C10D /* RKError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RKError.m; sourceTree = "<group>"; };
 		250CA67B147D8E800047D347 /* OCHamcrest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OCHamcrest.framework; sourceTree = "<group>"; };
 		250CA67C147D8E800047D347 /* OCHamcrestIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OCHamcrestIOS.framework; sourceTree = "<group>"; };
 		25160D1614564E810060A5C5 /* libRestKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRestKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -647,8 +649,6 @@
 		25160D9F145650490060A5C5 /* RKParserRegistry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RKParserRegistry.m; sourceTree = "<group>"; };
 		25160DA0145650490060A5C5 /* RKRouter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKRouter.h; sourceTree = "<group>"; };
 		25160DA1145650490060A5C5 /* RestKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestKit.h; sourceTree = "<group>"; };
-		25160DA3145650490060A5C5 /* Errors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Errors.h; sourceTree = "<group>"; };
-		25160DA4145650490060A5C5 /* Errors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Errors.m; sourceTree = "<group>"; };
 		25160DA5145650490060A5C5 /* lcl_config_components.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lcl_config_components.h; sourceTree = "<group>"; };
 		25160DA6145650490060A5C5 /* lcl_config_extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lcl_config_extensions.h; sourceTree = "<group>"; };
 		25160DA7145650490060A5C5 /* lcl_config_logger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lcl_config_logger.h; sourceTree = "<group>"; };
@@ -1099,12 +1099,12 @@
 		25160DA2145650490060A5C5 /* Support */ = {
 			isa = PBXGroup;
 			children = (
+				001EC63414C5AD8F00C9C10D /* RKError.h */,
+				001EC63514C5AD8F00C9C10D /* RKError.m */,
 				25160D5A145650490060A5C5 /* NSData+MD5.h */,
 				25160D5B145650490060A5C5 /* NSData+MD5.m */,
 				25160D5E145650490060A5C5 /* NSString+MD5.h */,
 				25160D5F145650490060A5C5 /* NSString+MD5.m */,
-				25160DA3145650490060A5C5 /* Errors.h */,
-				25160DA4145650490060A5C5 /* Errors.m */,
 				25160DA5145650490060A5C5 /* lcl_config_components.h */,
 				25160DA6145650490060A5C5 /* lcl_config_extensions.h */,
 				25160DA7145650490060A5C5 /* lcl_config_logger.h */,
@@ -1578,6 +1578,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				001EC63614C5AD8F00C9C10D /* RKError.h in Headers */,
 				25160DD5145650490060A5C5 /* CoreData.h in Headers */,
 				25160DD6145650490060A5C5 /* NSManagedObject+ActiveRecord.h in Headers */,
 				25160DD8145650490060A5C5 /* RKManagedObjectCache.h in Headers */,
@@ -1628,7 +1629,6 @@
 				25160E29145650490060A5C5 /* RKObjectSerializer.h in Headers */,
 				25160E2B145650490060A5C5 /* RKParserRegistry.h in Headers */,
 				25160E2D145650490060A5C5 /* RKRouter.h in Headers */,
-				25160E2F145650490060A5C5 /* Errors.h in Headers */,
 				25160E31145650490060A5C5 /* lcl_config_components.h in Headers */,
 				25160E32145650490060A5C5 /* lcl_config_extensions.h in Headers */,
 				25160E33145650490060A5C5 /* lcl_config_logger.h in Headers */,
@@ -1728,7 +1728,6 @@
 				25160F79145655D10060A5C5 /* RKObjectPropertyInspector+CoreData.h in Headers */,
 				25160F7F145657650060A5C5 /* NSData+MD5.h in Headers */,
 				25160F81145657650060A5C5 /* NSString+MD5.h in Headers */,
-				25160F83145657650060A5C5 /* Errors.h in Headers */,
 				25160F85145657650060A5C5 /* lcl_config_components.h in Headers */,
 				25160F86145657650060A5C5 /* lcl_config_extensions.h in Headers */,
 				25160F87145657650060A5C5 /* lcl_config_logger.h in Headers */,
@@ -1747,6 +1746,7 @@
 				25160F9E1456577F0060A5C5 /* RKJSONParserJSONKit.h in Headers */,
 				25160F25145655AF0060A5C5 /* RestKit.h in Headers */,
 				25B408271491CDDC00F21111 /* RKDirectory.h in Headers */,
+				001EC63914C5AD9D00C9C10D /* RKError.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2057,7 +2057,6 @@
 				25160E28145650490060A5C5 /* RKObjectRouter.m in Sources */,
 				25160E2A145650490060A5C5 /* RKObjectSerializer.m in Sources */,
 				25160E2C145650490060A5C5 /* RKParserRegistry.m in Sources */,
-				25160E30145650490060A5C5 /* Errors.m in Sources */,
 				25160E35145650490060A5C5 /* NSDictionary+RKAdditions.m in Sources */,
 				25160E37145650490060A5C5 /* NSString+RestKit.m in Sources */,
 				25160E39145650490060A5C5 /* NSURL+RestKit.m in Sources */,
@@ -2077,6 +2076,7 @@
 				25160EFA1456532C0060A5C5 /* LCLNSLog.m in Sources */,
 				25160F0A1456532C0060A5C5 /* SOCKit.m in Sources */,
 				25B408281491CDDC00F21111 /* RKDirectory.m in Sources */,
+				001EC63714C5AD8F00C9C10D /* RKError.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2204,7 +2204,6 @@
 				25160F7A145655D10060A5C5 /* RKObjectPropertyInspector+CoreData.m in Sources */,
 				25160F80145657650060A5C5 /* NSData+MD5.m in Sources */,
 				25160F82145657650060A5C5 /* NSString+MD5.m in Sources */,
-				25160F84145657650060A5C5 /* Errors.m in Sources */,
 				25160F89145657650060A5C5 /* NSDictionary+RKAdditions.m in Sources */,
 				25160F8B145657650060A5C5 /* NSString+RestKit.m in Sources */,
 				25160F8D145657650060A5C5 /* NSURL+RestKit.m in Sources */,
@@ -2217,6 +2216,7 @@
 				25160F9D145657720060A5C5 /* RKXMLParserLibXML.m in Sources */,
 				25160F9F1456577F0060A5C5 /* RKJSONParserJSONKit.m in Sources */,
 				25B408291491CDDC00F21111 /* RKDirectory.m in Sources */,
+				001EC63A14C5AF9B00C9C10D /* RKError.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
