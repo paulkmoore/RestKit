@@ -1,5 +1,5 @@
 //
-//  Errors.m
+//  RKError.m
 //  RestKit
 //
 //  Created by Blake Watters on 3/25/10.
@@ -18,8 +18,9 @@
 //  limitations under the License.
 //
 
-#import "Errors.h"
+#import "RKError.h"
 
-NSString* const RKRestKitErrorDomain = @"org.restkit.RestKit.ErrorDomain";
+NSString* const RKErrorDomain = @"org.restkit.RestKit.ErrorDomain";
 
 NSString* const RKObjectMapperErrorObjectsKey = @"RKObjectMapperErrorObjectsKey";
+NSString* const RKErrorNotificationErrorKey = @"error";
