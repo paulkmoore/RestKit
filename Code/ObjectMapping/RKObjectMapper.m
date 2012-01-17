@@ -80,7 +80,7 @@
                                      @"RKObjectMapperKeyPath", keyPath ? keyPath : (NSString*) [NSNull null],
                                      nil];
     [userInfo addEntriesFromDictionary:otherInfo];
-    NSError* error = [NSError errorWithDomain:RKRestKitErrorDomain code:errorCode userInfo:userInfo];
+    NSError* error = [NSError errorWithDomain:RKErrorDomain code:errorCode userInfo:userInfo];
     [self addError:error];
 }
 
