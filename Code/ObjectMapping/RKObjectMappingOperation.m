@@ -25,7 +25,7 @@
 #import "RKObjectPropertyInspector.h"
 #import "RKObjectRelationshipMapping.h"
 #import "RKObjectMapper.h"
-#import "Errors.h"
+#import "RKError.h"
 #import "RKLog.h"
 
 // Set Logging Component
