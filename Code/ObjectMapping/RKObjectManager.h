@@ -18,7 +18,8 @@
 //  limitations under the License.
 //
 
-#import "../Network/Network.h"
+//#import "../Network/Network.h"
+#import "Network.h"
 #import "RKObjectLoader.h"
 #import "RKObjectRouter.h"
 #import "RKObjectMappingProvider.h"
