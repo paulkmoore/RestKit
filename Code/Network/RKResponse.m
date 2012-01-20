@@ -53,7 +53,10 @@ extern NSString* cacheURLKey;
 	if (self) {
 		// We don't retain here as we're letting RKRequestQueue manage
 		// request ownership
-		_request = request;
+        //_request = request;
+        
+        // PKM Patch - class needs to own responsibility for retain/release
+		_request = [request retain];
 	}
 
 	return self;
@@ -73,7 +76,9 @@ extern NSString* cacheURLKey;
 - (id)initWithSynchronousRequest:(RKRequest*)request URLResponse:(NSHTTPURLResponse*)URLResponse body:(NSData*)body error:(NSError*)error {
     self = [super init];
 	if (self) {
-		_request = request;
+        // PKM Patch - and retain here
+		//_request = request;
+        _request = [request retain];
 		_httpURLResponse = [URLResponse retain];
 		_failureError = [error retain];
         _body = [[NSMutableData dataWithData:body] retain];
@@ -92,6 +97,9 @@ extern NSString* cacheURLKey;
 	_failureError = nil;
 	[_responseHeaders release];
 	_responseHeaders = nil;
+    // PKM Patch - Release the request
+    [_request release];
+    _request = nil;
 	[super dealloc];
 }
 
