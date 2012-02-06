@@ -2371,6 +2371,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Code/Support/RestKit-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
+					"RKLogLevelDefault=RKLogLevelTrace",
 					"DEBUG=1",
 					"$(inherited)",
 				);

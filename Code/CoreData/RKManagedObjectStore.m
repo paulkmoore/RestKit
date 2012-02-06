@@ -30,7 +30,7 @@
 
 NSString* const RKManagedObjectStoreDidFailSaveNotification = @"RKManagedObjectStoreDidFailSaveNotification";
 static NSString* const RKManagedObjectStoreThreadDictionaryContextKey = @"RKManagedObjectStoreThreadDictionaryContextKey";
-static NSString* const RKManagedObjectStoreThreadDictionaryEntityCacheKey = @"RKManagedObjectStoreThreadDictionaryEntityCacheKey";
+
 
 @interface RKManagedObjectStore (Private)
 - (id)initWithStoreFilename:(NSString *)storeFilename inDirectory:(NSString *)nilOrDirectoryPath usingSeedDatabaseName:(NSString *)nilOrNameOfSeedDatabaseInMainBundle managedObjectModel:(NSManagedObjectModel*)nilOrManagedObjectModel delegate:(id)delegate;
@@ -100,9 +100,6 @@ static NSString* const RKManagedObjectStoreThreadDictionaryEntityCacheKey = @"RK
 	NSMutableDictionary* threadDictionary = [[NSThread currentThread] threadDictionary];
     if ([threadDictionary objectForKey:RKManagedObjectStoreThreadDictionaryContextKey]) {
         [threadDictionary removeObjectForKey:RKManagedObjectStoreThreadDictionaryContextKey];
-    }
-    if ([threadDictionary objectForKey:RKManagedObjectStoreThreadDictionaryEntityCacheKey]) {
-        [threadDictionary removeObjectForKey:RKManagedObjectStoreThreadDictionaryEntityCacheKey];
     }
 }
 
@@ -299,7 +296,7 @@ static NSString* const RKManagedObjectStoreThreadDictionaryEntityCacheKey = @"RK
 
 - (void)mergeChanges:(NSNotification *)notification {
 	// Merge changes into the main context on the main thread
-	[self performSelectorOnMainThread:@selector(mergeChangesOnMainThreadWithNotification:) withObject:notification waitUntilDone:YES];
+	//[self performSelectorOnMainThread:@selector(mergeChangesOnMainThreadWithNotification:) withObject:notification waitUntilDone:YES];
 }
 
 - (void)objectsDidChange:(NSNotification*)notification {
@@ -348,44 +345,37 @@ static NSString* const RKManagedObjectStoreThreadDictionaryEntityCacheKey = @"RK
     // NOTE: We coerce the primary key into a string (if possible) for convenience. Generally
     // primary keys are expressed either as a number of a string, so this lets us support either case interchangeably
     id lookupValue = [primaryKeyValue respondsToSelector:@selector(stringValue)] ? [primaryKeyValue stringValue] : primaryKeyValue;
-    NSArray* objects = nil;
-    NSString* entityName = entity.name;
-    NSMutableDictionary* threadDictionary = [[NSThread currentThread] threadDictionary];
+
+    // Setup the fetch request
+    NSFetchRequest* fetchRequest = [[NSFetchRequest alloc] init];
+    [fetchRequest setEntity:entity];
+    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"%@ == %@", primaryKeyAttribute, lookupValue]];
     
-    if (nil == [threadDictionary objectForKey:RKManagedObjectStoreThreadDictionaryEntityCacheKey]) {
-        [threadDictionary setObject:[NSMutableDictionary dictionary] forKey:RKManagedObjectStoreThreadDictionaryEntityCacheKey];
-    }
+    // Execute the fetch request (uses ActiveRecord category)
+    NSError* error = nil;
+    NSArray* results = [[self managedObjectContext] executeFetchRequest:fetchRequest error:&error];
+    [fetchRequest release];
     
-    // Construct the cache if necessary
-    NSMutableDictionary* entityCache = [threadDictionary objectForKey:RKManagedObjectStoreThreadDictionaryEntityCacheKey];
-    if (nil == [entityCache objectForKey:entityName]) {
-        NSFetchRequest* fetchRequest = [[[NSFetchRequest alloc] init] autorelease];
-        [fetchRequest setEntity:entity];
-        [fetchRequest setReturnsObjectsAsFaults:NO];
-        objects = [NSManagedObject executeFetchRequest:fetchRequest];
-        RKLogInfo(@"Caching all %lu %@ objects to thread local storage", (unsigned long) [objects count], entity.name);
-        NSMutableDictionary* dictionary = [NSMutableDictionary dictionary];
-        BOOL coerceToString = [[[objects lastObject] valueForKey:primaryKeyAttribute] respondsToSelector:@selector(stringValue)];
-        for (id theObject in objects) {			
-            id attributeValue = [theObject valueForKey:primaryKeyAttribute];
-            // Coerce to a string if possible
-            attributeValue = coerceToString ? [attributeValue stringValue] : attributeValue;
-            if (attributeValue) {
-                [dictionary setObject:theObject forKey:attributeValue];
-            }
-        }
+    if (0 < results.count) {
+		// We have an object
+		object = [results objectAtIndex:0];
+	} else {
+		// There is no resource record, create one
+		object = [[[NSManagedObject alloc] initWithEntity:entity insertIntoManagedObjectContext:self.managedObjectContext] autorelease];
+	}
+    
+//    if (error) {
+//        RKLogError(@"Fetch request failed with error %@", error);
+//        return nil;
+//    }
         
-        [entityCache setObject:dictionary forKey:entityName];
-    }
     
-    NSMutableDictionary* dictionary = [entityCache objectForKey:entityName];
-    NSAssert1(dictionary, @"Thread local cache of %@ objects should not be nil", entityName);
-    object = [dictionary objectForKey:lookupValue];
+//    // Create a new object if no result is returned
+//    if (object == nil) {
+//        object = [[[NSManagedObject alloc] initWithEntity:entity insertIntoManagedObjectContext:self.managedObjectContext] autorelease];
+//    }
     
-    if (object == nil) {
-        object = [[[NSManagedObject alloc] initWithEntity:entity insertIntoManagedObjectContext:self.managedObjectContext] autorelease];
-        [dictionary setObject:object forKey:lookupValue];
-    }
+        //object = (NSManagedObject*)[NSManagedObject executeFetchRequestAndReturnFirstObject:fetchRequest];
         
 	return object;
 }
