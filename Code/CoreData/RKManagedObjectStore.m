@@ -349,7 +349,7 @@ static NSString* const RKManagedObjectStoreThreadDictionaryContextKey = @"RKMana
     // Setup the fetch request
     NSFetchRequest* fetchRequest = [[NSFetchRequest alloc] init];
     [fetchRequest setEntity:entity];
-    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"%@ == %@", primaryKeyAttribute, lookupValue]];
+    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"%K LIKE %@", primaryKeyAttribute, lookupValue]];  // Note: the %K is used for the column as it required NOT to have quotation marks
     
     // Execute the fetch request (uses ActiveRecord category)
     NSError* error = nil;
