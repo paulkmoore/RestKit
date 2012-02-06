@@ -146,6 +146,14 @@
     // If the response was successful, save the store...
     if ([self.response isSuccessful]) {
         [self deleteCachedObjectsMissingFromResult:result];
+        
+        // PKM - 31/1/2012 - added objectLoader:willSaveWithContext hook
+        if ([[self delegate] respondsToSelector:@selector(objectLoader:willSaveObjects:inContext:)]) {
+            [[self delegate] objectLoader:self
+                          willSaveObjects:[result asCollection]
+                                inContext:[[self objectStore] managedObjectContext]];
+        }
+        
         NSError* error = [self.objectStore save];
         if (error) {
             RKLogError(@"Failed to save managed object context after mapping completed: %@", [error localizedDescription]);
