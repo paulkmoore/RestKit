@@ -1,3 +1,6 @@
 [submodule "Examples/RKCatalog/Server"]
 	path = Examples/RKCatalog/Server
 	url = git://github.com/twotoasters/RKCatalog-Server.git
+[submodule "Vendor/MagicalRecord"]
+	path = Vendor/MagicalRecord
+	url = git@github.com:paulkmoore/MagicalRecord.git
