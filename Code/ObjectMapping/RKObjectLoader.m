@@ -235,8 +235,10 @@
         _result = [[self performMapping:&error] retain];
         NSAssert(_result || error, @"Expected performMapping to return a mapping result or an error.");
         if (self.result) {
+            RKLogDebug(@"Finished with SUCCESS object mapping activities within GCD queue labeled: %s", dispatch_queue_get_label(self.mappingQueue));
             [self processMappingResult:self.result];
         } else if (error) {
+            RKLogDebug(@"Finished with ERROR object mapping activities within GCD queue labeled: %s", dispatch_queue_get_label(self.mappingQueue));
             [self performSelectorOnMainThread:@selector(didFailLoadWithError:) withObject:error waitUntilDone:NO];
         }
         
