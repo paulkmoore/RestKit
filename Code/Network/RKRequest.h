@@ -163,7 +163,7 @@ typedef void(^RKRequestDidFailLoadWithErrorBlock)(NSError *error);
  * If the object implements the RKRequestDelegate protocol,
  * it will receive request lifecycle event messages.
  */
-@property(nonatomic, assign) id<RKRequestDelegate> delegate;
+@property(nonatomic, retain) id<RKRequestDelegate> delegate;
 
 @property(nonatomic, retain) RKRequestDidLoadResponseBlock onDidLoadResponse;
 @property(nonatomic, retain) RKRequestDidFailLoadWithErrorBlock onDidFailLoadWithError;

@@ -20,7 +20,8 @@
 
 #import <CoreData/CoreData.h>
 #import "ObjectMapping.h"
-#import "NSManagedObject+ActiveRecord.h"
+//#import "NSManagedObject+ActiveRecord.h"
+#import "NSManagedObject+RestKit.h"
 #import "RKManagedObjectStore.h"
 #import "RKManagedObjectSeeder.h"
 #import "RKManagedObjectCache.h"

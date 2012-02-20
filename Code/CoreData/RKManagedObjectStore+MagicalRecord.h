@@ -31,13 +31,35 @@
 - (NSString*)pathToStoreFile;
 
 /**
- *	Overload managedObjectContext getter to ensure we return a separate context
- *	for each NSThread (via MagicalRecord).
+ * Overload in order to proxy to MagicalRecord method
  */
--(NSManagedObjectContext*)managedObjectContext;
+- (NSManagedObjectContext*)managedObjectContext;
+
+/**
+ * Overload in order to proxy to MagicalRecord method
+ */
+- (NSPersistentStoreCoordinator*)persistentStoreCoordinator;
+
+/**
+ * Overload in order to proxy to MagicalRecord method
+ */
+- (NSManagedObjectModel*)managedObjectModel;
+
+/**
+ * Overload in order to proxy to MagicalRecord method
+ */
+- (NSError*)save;
+
 
 - (NSManagedObject*)findOrCreateInstanceOfEntity:(NSEntityDescription*)entity
                          withPrimaryKeyAttribute:(NSString*)primaryKeyAttribute
                                         andValue:(id)primaryKeyValue;
+
+- (NSManagedObject*)objectWithID:(NSManagedObjectID*)objectID;
+- (NSManagedObject*)objectWithID:(NSManagedObjectID*)objectID
+                       inContext:(NSManagedObjectContext*)context;
+- (NSArray*)objectsWithIDs:(NSArray*)objectIDs;
+
+
 
 @end

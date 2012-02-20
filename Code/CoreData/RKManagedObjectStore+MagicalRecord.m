@@ -21,10 +21,12 @@
         _storeFilename = [storeFilename retain];
         _delegate = delegate;
               
-        // Initialize the MagicalRecord Core Data stack (by filename) and set the attributes in the RKManagedObjectStore
+        // Initialize the MagicalRecord Core Data stack (by filename)
+        // Note: we do not set the _persistentStoreCoordinator or
+        // _managedObjectModel iVars. We prefer instead to overload
+        // the accessors as proxy methods - @see Custom Accessors
+        
         [MagicalRecordHelpers setupCoreDataStackWithStoreNamed:(NSString *)storeFilename];
-        _persistentStoreCoordinator = [NSPersistentStoreCoordinator defaultStoreCoordinator];
-        _managedObjectModel = [[self persistentStoreCoordinator] managedObjectModel];
     }
     
     return self;
@@ -41,6 +43,17 @@
 	return [NSManagedObjectContext contextForCurrentThread];
 }
 
+- (NSPersistentStoreCoordinator*)persistentStoreCoordinator {
+    return [NSPersistentStoreCoordinator defaultStoreCoordinator];
+}
+
+- (NSManagedObjectModel*)managedObjectModel {
+    return [[self persistentStoreCoordinator] managedObjectModel];
+}
+
+
+
+
 #pragma mark -
 #pragma mark Helper Methods
 
@@ -49,17 +62,53 @@
     NSAssert(primaryKeyAttribute, @"Cannot find existing managed object instance without a primary key attribute");
     NSAssert(primaryKeyValue, @"Cannot find existing managed object by primary key without a value");
 	NSManagedObject* object = nil;
-   
-    // Try to find the object
-    object = [NSClassFromString([entity managedObjectClassName]) findFirstByAttribute:(NSString *)primaryKeyAttribute
-                                                                            withValue:(id)primaryKeyValue];  // Note: the MagicalRecord method is a class method, and requires us to 'obtain' the specific class for the requested entity.
-
-    // If we can't find the object, create a new one...
-    if (!object) {
-        object = [[[NSManagedObject alloc] initWithEntity:entity insertIntoManagedObjectContext:[NSManagedObjectContext contextForCurrentThread]] autorelease];
-    }
     
-	return object;
+    // Determine the object class of the entity - MagicalRecord uses NSManagedObject class
+    // methods in preference to being 'entity based'.
+    Class objectClass = NSClassFromString([entity managedObjectClassName]);
+   
+    // Try to find the object...
+    if (!(object = [objectClass findFirstByAttribute:primaryKeyAttribute withValue:primaryKeyValue])) {
+        // and if we don't find the object, create a new one.
+        object = [objectClass createEntity];
+    }
+
+	return (object);
+}
+
+- (NSError*)save {
+    __block NSError* saveError = nil;  // Mutable reference
+    
+    // We call the MagicalRecord NSManagedObjectContext:saveWithErrorHandler to get to the
+    // NSError object, acknowledging that we forego MR's default error handlers.
+    [[NSManagedObjectContext contextForCurrentThread] saveWithErrorHandler:^(NSError* error) {
+        // Capture the error so that we can return it (outside of the block)
+        saveError = error;
+    }];
+    
+    return (saveError);
+}
+
+// TODO Consider moving the 'object with ID methods to NSManagedObject+MagicalRecord
+
+- (NSManagedObject*)objectWithID:(NSManagedObjectID*)objectID {
+    return [[NSManagedObjectContext contextForCurrentThread] objectWithID:objectID];
+}
+
+- (NSManagedObject*)objectWithID:(NSManagedObjectID*)objectID inContext:(NSManagedObjectContext*)context {
+    return [context objectWithID:objectID];
+}
+
+
+- (NSArray*)objectsWithIDs:(NSArray*)objectIDs {
+	NSMutableArray* objects = [[NSMutableArray alloc] init];
+	for (NSManagedObjectID* objectID in objectIDs) {
+		[objects addObject:[self objectWithID:objectID]];
+	}
+	NSArray* objectArray = [NSArray arrayWithArray:objects];
+	[objects release];
+	
+	return objectArray;
 }
 
 

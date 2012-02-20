@@ -95,6 +95,8 @@
 - (id)initWithURL:(NSURL*)URL delegate:(id)delegate {
     self = [self initWithURL:URL];
 	if (self) {
+        // PKM
+        NSLog(@"Request set with delegate %@", delegate);
 		_delegate = delegate;
 	}
 	return self;
